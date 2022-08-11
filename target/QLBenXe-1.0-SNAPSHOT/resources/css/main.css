@@ -1,0 +1,175 @@
+*{
+    box-sizing: border-box;
+    font-family: Corbel, "Tahoma Regular", "Tahoma Bold", sans-serif;
+}
+body{
+    background-color: #f5f6fb;
+}
+.color-blue{
+    color: #657ef8;
+}
+.border-rounded{
+    border-radius: 16px;
+}
+.dropdown{
+    position: relative;
+}
+.dropdown:hover .dropdown-list{
+    display: block;
+}
+.dropdown-select{
+    color: #8592a3;
+    background-color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.dropdown-select:hover{
+    background-color: #e1e7ff;
+    font-weight: bold;
+    color: #657ef8;
+    border: none;
+}
+.dropdown-list{
+    width: 250px;
+    height: fit-content;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 99;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0px 8px 16px 0px #0a58ca;
+    border-radius: 16px;
+    color: #8592a3;
+    display: none;
+}
+.dropdown-list__item a{
+    display: block;
+    background-color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    text-decoration: none;
+    color: #8592a3;
+    font-weight: bold;
+}
+.dropdown-list__item:hover a{
+    background-color: #e1e7ff;
+    color: #657ef8;
+    border: none;
+}
+
+/*-------------*/
+.navbar-brand{
+    cursor: pointer;
+    position: relative;
+}
+.navbar-brand:hover .nav-brand-menu{
+    display: block;
+}
+.navbar-brand .nav-brand-menu{
+    position: absolute;
+    display: none;
+    z-index: 99;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0px 8px 16px 0px #0a58ca;
+    border-radius: 10px;
+    color: #8592a3;
+    width: 250px;
+    list-style-type: none;
+    right: 0;
+    top: 100%;
+    padding: 5px 0px;
+}
+.navbar-brand .nav-brand-menu li a{
+    display: block;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 10px;
+    text-decoration: none;
+    color: #8592a3;
+}
+.nav-brand-menu li a span{
+    font-size: 14px;
+    font-weight: bold;
+}
+.nav-brand-menu li a i{
+    font-size: 24px;
+    margin-right: 10px;
+}
+.navbar-brand .nav-brand-menu li:hover a{
+    background-color: #e1e7ff;
+    color: #657ef8;
+    border: none;
+}
+.nav-icon{ 
+    font-size: 20px;
+    color: #8592a3;
+    cursor: pointer;
+}
+.nav-icon i{
+    padding: 7px;
+    border-radius: 20px;
+}
+.nav-icon i:hover{
+    background-color: #e1e7ff;
+    color: #657ef8;
+}
+/*------------------*/
+.nav-icon{
+    position: relative;
+}
+.notification--active{
+    background-color: #e1e7ff;
+    color: #657ef8;
+}
+.notification-header{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 10px;
+    color: black;
+}
+.notification-list{
+    width: 510px;
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    z-index: 99;
+    top: 121%;
+    right: 0;
+    box-shadow: 0px 8px 16px 0px #0a58ca;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: auto;
+}
+.notification-list--active{
+    display: block;
+}
+.notification-empty .notification-content img{
+    width: 30%;
+    padding: 20px 0px;
+}
+.notification-empty .notification-content span{
+    font-size: 14px;
+}
+.notification-empty .notification-content a{
+    text-decoration: none;
+    color: #fff;
+    background-color: #657ef8;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+/*--------------------*/
+.icon-button{
+    display: block;
+    border: 1px solid;
+}

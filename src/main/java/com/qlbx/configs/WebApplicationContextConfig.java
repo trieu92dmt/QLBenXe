@@ -5,9 +5,12 @@
  */
 package com.qlbx.configs;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,7 +24,12 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.qlbx.controllers"})
+@EnableTransactionManagement
+@ComponentScan(basePackages = {
+    "com.qlbx.controllers",
+    "com.qlbx.repository",
+    "com.qlbx.service"
+})
 public class WebApplicationContextConfig implements WebMvcConfigurer{
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -31,6 +39,8 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**").addResourceLocations("/resources/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
     }
     
     @Bean
@@ -41,5 +51,13 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
         resolver.setSuffix(".jsp");
         
         return resolver;
+    }
+    
+    @Bean
+    public MessageSource messageSource(){
+        ResourceBundleMessageSource r = new ResourceBundleMessageSource();
+        r.setBasenames("messages");
+        
+        return r;
     }
 }
