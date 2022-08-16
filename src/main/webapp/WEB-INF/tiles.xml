@@ -18,4 +18,26 @@
         <put-attribute name="title" value="Đăng Nhập"/>
         <put-attribute name="content" value="/WEB-INF/jsp/login.jsp"/>
     </definition>
+    <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="Đăng kí"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/register.jsp"/>
+    </definition>
+    <definition name="package" extends="baseLayout">
+        <put-attribute name="title" value="Gói nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/package.jsp"/>
+    </definition>
+    <!--Admin-->
+    <definition name="baseAdminLayout" template="/WEB-INF/layout/admin/base.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/layout/admin/header.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="sidebar" value="/WEB-INF/layout/admin/sidebar.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/admin/footer.jsp"/>
+    </definition>
+    <definition name="admin-dashboard" extends="baseAdminLayout">
+        <put-attribute name="title" value="Trang Chủ - Admin"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/index.jsp"/>
+    </definition>
+    <definition name="error" template="/WEB-INF/jsp/error.jsp">
+    </definition>
 </tiles-definitions>

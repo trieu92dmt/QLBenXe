@@ -49,7 +49,7 @@ public class Route implements Serializable {
     @Size(max = 45)
     @Column(name = "destination")
     private String destination;
-    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private CarCompany companyId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "routeId")

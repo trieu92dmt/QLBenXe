@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,29 +33,28 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CarCompany.findAll", query = "SELECT c FROM CarCompany c"),
-    @NamedQuery(name = "CarCompany.findByCompanyId", query = "SELECT c FROM CarCompany c WHERE c.companyId = :companyId"),
+    @NamedQuery(name = "CarCompany.findById", query = "SELECT c FROM CarCompany c WHERE c.id = :id"),
     @NamedQuery(name = "CarCompany.findByCompanyName", query = "SELECT c FROM CarCompany c WHERE c.companyName = :companyName"),
     @NamedQuery(name = "CarCompany.findByAddress", query = "SELECT c FROM CarCompany c WHERE c.address = :address"),
-    @NamedQuery(name = "CarCompany.findByPacketId", query = "SELECT c FROM CarCompany c WHERE c.packetId = :packetId"),
+    @NamedQuery(name = "CarCompany.findByPackageId", query = "SELECT c FROM CarCompany c WHERE c.packageId = :packageId"),
     @NamedQuery(name = "CarCompany.findByEmail", query = "SELECT c FROM CarCompany c WHERE c.email = :email"),
-    @NamedQuery(name = "CarCompany.findByPhoneNumber", query = "SELECT c FROM CarCompany c WHERE c.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "CarCompany.findByNumberAccount", query = "SELECT c FROM CarCompany c WHERE c.numberAccount = :numberAccount")})
+    @NamedQuery(name = "CarCompany.findByPhoneNumber", query = "SELECT c FROM CarCompany c WHERE c.phoneNumber = :phoneNumber")})
 public class CarCompany implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "company_id")
-    private Integer companyId;
+    @Column(name = "id")
+    private Integer id;
     @Size(max = 45)
     @Column(name = "company_name")
     private String companyName;
     @Size(max = 45)
     @Column(name = "address")
     private String address;
-    @Column(name = "packet_id")
-    private Integer packetId;
+    @Column(name = "package_id")
+    private Integer packageId;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 45)
     @Column(name = "email")
@@ -61,10 +62,13 @@ public class CarCompany implements Serializable {
     @Size(max = 45)
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "number_account")
-    private Integer numberAccount;
-    @ManyToMany(mappedBy = "carCompanySet")
+    @JoinTable(name = "company_account", joinColumns = {
+        @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
+    @ManyToMany
     private Set<User> userSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Set<Bill> billSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Set<Route> routeSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
@@ -75,16 +79,16 @@ public class CarCompany implements Serializable {
     public CarCompany() {
     }
 
-    public CarCompany(Integer companyId) {
-        this.companyId = companyId;
+    public CarCompany(Integer id) {
+        this.id = id;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCompanyName() {
@@ -103,12 +107,12 @@ public class CarCompany implements Serializable {
         this.address = address;
     }
 
-    public Integer getPacketId() {
-        return packetId;
+    public Integer getPackageId() {
+        return packageId;
     }
 
-    public void setPacketId(Integer packetId) {
-        this.packetId = packetId;
+    public void setPackageId(Integer packageId) {
+        this.packageId = packageId;
     }
 
     public String getEmail() {
@@ -127,14 +131,6 @@ public class CarCompany implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getNumberAccount() {
-        return numberAccount;
-    }
-
-    public void setNumberAccount(Integer numberAccount) {
-        this.numberAccount = numberAccount;
-    }
-
     @XmlTransient
     public Set<User> getUserSet() {
         return userSet;
@@ -142,6 +138,15 @@ public class CarCompany implements Serializable {
 
     public void setUserSet(Set<User> userSet) {
         this.userSet = userSet;
+    }
+
+    @XmlTransient
+    public Set<Bill> getBillSet() {
+        return billSet;
+    }
+
+    public void setBillSet(Set<Bill> billSet) {
+        this.billSet = billSet;
     }
 
     @XmlTransient
@@ -174,7 +179,7 @@ public class CarCompany implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (companyId != null ? companyId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -185,7 +190,7 @@ public class CarCompany implements Serializable {
             return false;
         }
         CarCompany other = (CarCompany) object;
-        if ((this.companyId == null && other.companyId != null) || (this.companyId != null && !this.companyId.equals(other.companyId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -193,7 +198,7 @@ public class CarCompany implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qlbx.pojo.CarCompany[ companyId=" + companyId + " ]";
+        return "com.qlbx.pojo.CarCompany[ id=" + id + " ]";
     }
     
 }

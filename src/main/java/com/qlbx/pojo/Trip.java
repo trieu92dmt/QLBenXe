@@ -59,11 +59,11 @@ public class Trip implements Serializable {
     @Size(max = 45)
     @Column(name = "driver_name")
     private String driverName;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripId")
+    private Set<Ticket> ticketSet;
     @JoinColumn(name = "route_id", referencedColumnName = "route_id")
     @ManyToOne(optional = false)
     private Route routeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripId")
-    private Set<Ticket> ticketSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripId")
     private Set<ShipmentDetails> shipmentDetailsSet;
 
@@ -114,14 +114,6 @@ public class Trip implements Serializable {
         this.driverName = driverName;
     }
 
-    public Route getRouteId() {
-        return routeId;
-    }
-
-    public void setRouteId(Route routeId) {
-        this.routeId = routeId;
-    }
-
     @XmlTransient
     public Set<Ticket> getTicketSet() {
         return ticketSet;
@@ -129,6 +121,14 @@ public class Trip implements Serializable {
 
     public void setTicketSet(Set<Ticket> ticketSet) {
         this.ticketSet = ticketSet;
+    }
+
+    public Route getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Route routeId) {
+        this.routeId = routeId;
     }
 
     @XmlTransient

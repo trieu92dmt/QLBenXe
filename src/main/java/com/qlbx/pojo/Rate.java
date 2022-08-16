@@ -39,7 +39,7 @@ public class Rate implements Serializable {
     private Integer id;
     @Column(name = "point")
     private Integer point;
-    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private CarCompany companyId;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")

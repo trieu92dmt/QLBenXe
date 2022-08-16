@@ -8,6 +8,10 @@ body{
 .color-blue{
     color: #657ef8;
 }
+.std-link{
+    text-decoration: none;
+    color: #657ef8;
+}
 .border-rounded{
     border-radius: 16px;
 }

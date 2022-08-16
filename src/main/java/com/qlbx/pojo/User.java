@@ -12,9 +12,9 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -48,19 +48,28 @@ import javax.xml.bind.annotation.XmlTransient;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final String ADMIN = "ROLE_ADMIN";
+    public static final String USER = "ROLE_USER";
+    public static final String COMPANY = "ROLE_COMPANY";
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "user_id")
     private Integer userId;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
     @Size(max = 45)
@@ -75,15 +84,12 @@ public class User implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @JoinTable(name = "company_account", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "company_id", referencedColumnName = "company_id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "userSet")
     private Set<CarCompany> carCompanySet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Set<Rate> rateSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Admin admin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Rate> rateSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Comment> commentSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
@@ -94,6 +100,13 @@ public class User implements Serializable {
 
     public User(Integer userId) {
         this.userId = userId;
+    }
+
+    public User(Integer userId, String username, String password, String email) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     public Integer getUserId() {
@@ -169,6 +182,14 @@ public class User implements Serializable {
         this.carCompanySet = carCompanySet;
     }
 
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
     @XmlTransient
     public Set<Rate> getRateSet() {
         return rateSet;
@@ -176,14 +197,6 @@ public class User implements Serializable {
 
     public void setRateSet(Set<Rate> rateSet) {
         this.rateSet = rateSet;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
     }
 
     @XmlTransient

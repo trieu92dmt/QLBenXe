@@ -41,7 +41,7 @@ public class Comment implements Serializable {
     @Size(max = 100)
     @Column(name = "content")
     private String content;
-    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private CarCompany companyId;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")

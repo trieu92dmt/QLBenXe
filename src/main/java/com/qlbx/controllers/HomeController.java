@@ -6,6 +6,7 @@
 package com.qlbx.controllers;
 
 import com.qlbx.service.CarCompanyService;
+import com.qlbx.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,18 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author ASUS
  */
 @Controller
-//@ControllerAdvice
 public class HomeController {
     @Autowired
-    private CarCompanyService carCompanyService;
-    
-    @ModelAttribute
-    public void commonAttr(Model model){
-        model.addAttribute("carCompany", this.carCompanyService.getListCarCompany());
-    }
+    private PackageService packageService;
     
     @GetMapping(value="/")
     public String index(){
         return "home";
+    }
+    
+    @GetMapping(value="/package")
+    public String chosePackage(Model model){
+        model.addAttribute("packages", this.packageService.getPackages());
+        return "package";
     }
 }

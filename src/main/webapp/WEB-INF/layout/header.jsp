@@ -9,8 +9,7 @@
 
 <nav class="navbar navbar-expand-sm navbar-blue bg-white">
     <div class="container">
-        <c:url var="home" value="/"/>
-        <a style="font-weight: bold;" class="navbar-brand" href="${home}">
+        <a style="font-weight: bold;" class="navbar-brand" href="<c:url value="/"/>">
             Bus Station
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -19,7 +18,10 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="${home}">Trang Chủ</a>
+                    <a class="nav-link" href="<c:url value="/"/>">Trang Chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/package"/>">Đăng Kí Nhà Xe</a>
                 </li>
             </ul>
             <div class="navbar-right d-flex align-items-center">
@@ -92,12 +94,22 @@
                                 <span>Đăng nhập vào trái đất</span>
                             </a>
                         </li>
-                        <li class="p-1">
-                            <a class="d-flex" href="<c:url value="/login"/>">
-                                <i class="fa-solid fa-right-to-bracket"></i>
-                                <span>Đăng nhập vào trái đất</span>
-                            </a>
-                        </li>
+                        <c:if test="${pageContext.request.userPrincipal.name == null}">
+                            <li class="p-1">
+                                <a class="d-flex" href="<c:url value="/login"/>">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                    <span>Đăng nhập vào trái đất</span>
+                                </a>
+                            </li>
+                        </c:if>
+                        <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <li class="p-1">
+                                <a class="d-flex" href="<c:url value="/user-logout"/>">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                    <span>Đăng xuất khỏi trái đất</span>
+                                </a>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
