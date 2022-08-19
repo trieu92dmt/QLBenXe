@@ -14,6 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author ASUS
  */
 public interface UserService extends UserDetailsService{
-    boolean addUser(User user);
+    boolean addUser(User user, String userRole);
     List<User> getUsers(String username);
 }

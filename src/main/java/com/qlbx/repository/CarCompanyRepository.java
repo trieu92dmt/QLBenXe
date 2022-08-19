@@ -13,5 +13,6 @@ import java.util.List;
  * @author ASUS
  */
 public interface CarCompanyRepository {
+    boolean addCarCompany(CarCompany carCompany);
     List<CarCompany> getListCarCompany();
 }

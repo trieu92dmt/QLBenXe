@@ -25,4 +25,9 @@ public class CarCompanyServiceImpl implements CarCompanyService{
     public List<CarCompany> getListCarCompany() {
         return this.carCompanyRepository.getListCarCompany();
     }
+
+    @Override
+    public boolean addCarCompany(CarCompany carCompany) {
+        return this.carCompanyRepository.addCarCompany(carCompany);
+    }
 }

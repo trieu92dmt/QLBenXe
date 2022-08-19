@@ -31,11 +31,11 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public boolean addUser(User user) {
+    public boolean addUser(User user, String userRole) {
         String pass = user.getPassword();
         user.setPassword(this.passwordEncoder.encode(pass));
-        user.setRole(User.USER);
-        return this.userRepository.addUser(user);
+        user.setRole(userRole);
+        return this.userRepository.addUser(user, userRole);
     }
 
     @Override

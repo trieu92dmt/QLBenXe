@@ -5,6 +5,7 @@
  */
 package com.qlbx.controllers;
 
+import com.qlbx.pojo.User;
 import com.qlbx.service.CarCompanyService;
 import com.qlbx.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -27,11 +29,5 @@ public class HomeController {
     @GetMapping(value="/")
     public String index(){
         return "home";
-    }
-    
-    @GetMapping(value="/package")
-    public String chosePackage(Model model){
-        model.addAttribute("packages", this.packageService.getPackages());
-        return "package";
     }
 }

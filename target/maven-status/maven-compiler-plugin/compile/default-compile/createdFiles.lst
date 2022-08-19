@@ -1,5 +1,6 @@
 com\qlbx\controllers\AdminController.class
 com\qlbx\controllers\UserController.class
+com\qlbx\controllers\CarCompanyController.class
 com\qlbx\pojo\User_.class
 com\qlbx\service\UserService.class
 com\qlbx\pojo\Bill.class
@@ -12,6 +13,7 @@ com\qlbx\controllers\HomeController.class
 com\qlbx\pojo\Comment_.class
 com\qlbx\pojo\Trip.class
 com\qlbx\service\impl\CarCompanyServiceImpl.class
+com\qlbx\pojo\CarCompanyRegister.class
 com\qlbx\configs\SecurityWebApplicationInitializer.class
 com\qlbx\configs\TilesConfig.class
 com\qlbx\pojo\Customer_.class

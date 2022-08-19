@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -23,12 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ASUS
  */
 @Repository
+@Transactional
 public class CarCompanyRepositoryImpl implements CarCompanyRepository{
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
     
     @Override
-    @Transactional
     public List<CarCompany> getListCarCompany() {
         Session s = sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = s.getCriteriaBuilder();
@@ -38,6 +39,18 @@ public class CarCompanyRepositoryImpl implements CarCompanyRepository{
         
         Query q = s.createQuery(query);
         return q.getResultList();
+    }
+
+    @Override
+    public boolean addCarCompany(CarCompany carCompany) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        try{
+            session.save(carCompany);
+            return true;
+        }catch(HibernateException ex){
+            System.err.println(ex.getMessage());
+        }
+        return false;
     }
     
 }

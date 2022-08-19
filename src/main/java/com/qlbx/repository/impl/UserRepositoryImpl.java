@@ -28,11 +28,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserRepositoryImpl implements UserRepository{
     @Autowired
-    private LocalSessionFactoryBean sessionFactoryBean;
+    private LocalSessionFactoryBean sessionFactory;
 
     @Override
-    public boolean addUser(User user) {
-        Session session = sessionFactoryBean.getObject().getCurrentSession();
+    public boolean addUser(User user, String userRole) {
+        Session session = sessionFactory.getObject().getCurrentSession();
         try{
             session.save(user);
             return true;
@@ -44,7 +44,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public List<User> getUsers(String username) {
-        Session session = sessionFactoryBean.getObject().getCurrentSession();
+        Session session = sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root root = query.from(User.class);

@@ -13,6 +13,6 @@ import java.util.List;
  * @author ASUS
  */
 public interface UserRepository {
-    boolean addUser(User user);
+    boolean addUser(User user, String userRole);
     List<User> getUsers(String username);
 }

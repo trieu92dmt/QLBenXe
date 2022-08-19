@@ -36,7 +36,7 @@ public class UserController {
     
     @PostMapping("/register")
     public String register(@ModelAttribute(value = "user") User user){
-        if (userDetailsService.addUser(user) == true)
+        if (userDetailsService.addUser(user, User.USER) == true)
             return "redirect:/login";
         return "register";
     }
