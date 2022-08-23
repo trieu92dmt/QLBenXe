@@ -15,4 +15,5 @@ import java.util.List;
 public interface CarCompanyRepository {
     boolean addCarCompany(CarCompany carCompany);
     List<CarCompany> getListCarCompany();
+    CarCompany getCarCompanyById (int id);
 }

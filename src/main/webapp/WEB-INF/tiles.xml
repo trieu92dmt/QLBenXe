@@ -30,6 +30,10 @@
         <put-attribute name="title" value="Các nhà xe"/>
         <put-attribute name="content" value="/WEB-INF/jsp/trip.jsp"/>
     </definition>
+    <definition name="carcompanydetail" extends="baseLayout">
+        <put-attribute name="title" value="Các nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/carcompanydetail.jsp"/>
+    </definition>
     <!--Admin-->
     <definition name="baseAdminLayout" template="/WEB-INF/layout/admin/base.jsp">
         <put-attribute name="title" value=""/>

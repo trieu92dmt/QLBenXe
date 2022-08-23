@@ -14,27 +14,30 @@
 </div>
 <div class="row">
     <c:forEach var= "c" items="${carcompany}">
-        <div class="card col-md-4" style="padding: 15px">
-            <div class="card-body">
-                <img class="img-fluid card-img-top" src="<c:url value="/images/qiqi.jpg"/>" alt="Card image">
+        
+            <div class="card col-md-4" style="padding: 15px">
+                <div class="card-body">
+                    <img class="img-fluid card-img-top" src="<c:url value="/images/qiqi.jpg"/>" alt="Card image">
 
+                </div>
+                <div class="card-footer">
+                    <h5 class="card-title">${c.companyName}</h5>
+                    <p>${c.address}</p>
+                    <a href="<c:url value="/trip/${c.id}"/>">
+                        <input type="button" class="btn-std-light btn-register-company" value="Xem chi tiết"/>
+                    </a>
+                </div>
             </div>
-            <div class="card-footer">
-                <h5 class="card-title">${c.companyName}</h5>
-                <p>${c.address}</p>
-                <p>${c.phoneNumber}</p>
-                <input type="button" class="btn-std-light btn-inf-company" value="Xem chi tiết"/>
-            </div>
-        </div>
+        
     </c:forEach>
 
 </div>
 <div class="text-center">
     <ul class="pagination">
         <li class="page-item"><a class="page-link" href="<c:url value="/"/>?page1">1</a></li>
-        
+
         <li class="page-item"><a class="page-link" href="<c:url value="/"/>?page2">2</a></li>
-        
+
     </ul>
 </div>
 

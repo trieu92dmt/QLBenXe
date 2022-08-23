@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,11 @@ public class CarCompanyRepositoryImpl implements CarCompanyRepository{
         
         Query q = s.createQuery(query);
         return q.getResultList();
+    }
+    @Override
+    public CarCompany getCarCompanyById(int id){
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        return session.get(CarCompany.class,id);
     }
 
     @Override
