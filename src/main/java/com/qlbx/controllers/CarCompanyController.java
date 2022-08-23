@@ -41,6 +41,7 @@ public class CarCompanyController {
         return "package";
     }
 
+
     @PostMapping("/carCompanyRegister")
     public String carCompanyRegister(@ModelAttribute(value = "carCompanyRegister") CarCompanyRegister carCompanyRegister) {
         if (userDetailsService.addUser(carCompanyRegister.getUser(), User.COMPANY) == true && 
