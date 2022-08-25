@@ -48,6 +48,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate")})
 public class User implements Serializable {
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private CarCompany carCompany;
+
     private static final long serialVersionUID = 1L;
     public static final String ADMIN = "ROLE_ADMIN";
     public static final String USER = "ROLE_USER";
@@ -85,8 +88,6 @@ public class User implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @ManyToMany(mappedBy = "userSet")
-    private Set<CarCompany> carCompanySet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Admin admin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
@@ -176,15 +177,6 @@ public class User implements Serializable {
         this.createdDate = createdDate;
     }
 
-    @XmlTransient
-    public Set<CarCompany> getCarCompanySet() {
-        return carCompanySet;
-    }
-
-    public void setCarCompanySet(Set<CarCompany> carCompanySet) {
-        this.carCompanySet = carCompanySet;
-    }
-
     public Admin getAdmin() {
         return admin;
     }
@@ -256,6 +248,14 @@ public class User implements Serializable {
      */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public CarCompany getCarCompany() {
+        return carCompany;
+    }
+
+    public void setCarCompany(CarCompany carCompany) {
+        this.carCompany = carCompany;
     }
     
 }

@@ -6,6 +6,7 @@
 package com.qlbx.controllers;
 
 import com.qlbx.service.CarCompanyService;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,9 @@ public class CommonController {
     private CarCompanyService carCompanyService;
     
     @ModelAttribute
-    public void commonAttr(Model model){
+    public void commonAttr(Model model, HttpSession session){
         model.addAttribute("carCompany", this.carCompanyService.getListCarCompany());
+        model.addAttribute("currentUser", session.getAttribute("currentUser"));
     }
     
     @GetMapping(value = "error")

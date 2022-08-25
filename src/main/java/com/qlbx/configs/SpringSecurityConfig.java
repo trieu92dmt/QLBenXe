@@ -5,6 +5,7 @@
  */
 package com.qlbx.configs;
 
+import com.qlbx.handlers.LoginSuccessfullHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -33,6 +35,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private AuthenticationSuccessHandler loginSuccessHandler;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -53,9 +57,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password").and()
                 .logout().logoutUrl("/user-logout").logoutSuccessUrl("/login");
+        http.formLogin().successHandler(this.loginSuccessHandler);
         http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .and().exceptionHandling().accessDeniedPage("/error");
         http.csrf().disable();
     }
 
+    @Bean
+    public AuthenticationSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessfullHandler();
+    }
 }

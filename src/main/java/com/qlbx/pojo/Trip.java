@@ -5,6 +5,7 @@
  */
 package com.qlbx.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -25,6 +26,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.math.BigInteger;
+import java.sql.Time;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 /**
  *
@@ -37,33 +45,36 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Trip.findAll", query = "SELECT t FROM Trip t"),
     @NamedQuery(name = "Trip.findByTripId", query = "SELECT t FROM Trip t WHERE t.tripId = :tripId"),
     @NamedQuery(name = "Trip.findByDepartureTime", query = "SELECT t FROM Trip t WHERE t.departureTime = :departureTime"),
-    @NamedQuery(name = "Trip.findByTime", query = "SELECT t FROM Trip t WHERE t.time = :time"),
-    @NamedQuery(name = "Trip.findByLicensePlate", query = "SELECT t FROM Trip t WHERE t.licensePlate = :licensePlate"),
-    @NamedQuery(name = "Trip.findByDriverName", query = "SELECT t FROM Trip t WHERE t.driverName = :driverName")})
+    @NamedQuery(name = "Trip.findByTime", query = "SELECT t FROM Trip t WHERE t.time = :time")})
 public class Trip implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "trip_id")
     private Integer tripId;
+    @Column(name = "date")
+//    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
     @Column(name = "departure_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date departureTime;
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @DateTimeFormat(pattern = "HH:mm")
+    private String departureTime;
     @Column(name = "time")
-    private Integer time;
-    @Size(max = 45)
-    @Column(name = "license_plate")
-    private String licensePlate;
-    @Size(max = 45)
-    @Column(name = "driver_name")
-    private String driverName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripId")
-    private Set<Ticket> ticketSet;
+    private String time;
+    @Column(name = "ticket_price")
+    private BigInteger ticketPrice;
+//    @JsonIgnore
     @JoinColumn(name = "route_id", referencedColumnName = "route_id")
     @ManyToOne(optional = false)
     private Route routeId;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripId")
+    private Set<Ticket> ticketSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripId")
     private Set<ShipmentDetails> shipmentDetailsSet;
 
@@ -82,36 +93,20 @@ public class Trip implements Serializable {
         this.tripId = tripId;
     }
 
-    public Date getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
-    public Integer getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Integer time) {
+    public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-
-    public String getDriverName() {
-        return driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
     }
 
     @XmlTransient
@@ -163,6 +158,34 @@ public class Trip implements Serializable {
     @Override
     public String toString() {
         return "com.qlbx.pojo.Trip[ tripId=" + tripId + " ]";
+    }
+
+    /**
+     * @return the ticketPrice
+     */
+    public BigInteger getTicketPrice() {
+        return ticketPrice;
+    }
+
+    /**
+     * @param ticketPrice the ticketPrice to set
+     */
+    public void setTicketPrice(BigInteger ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
+        this.date = date;
     }
     
 }

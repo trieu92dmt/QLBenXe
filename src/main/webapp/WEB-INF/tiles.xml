@@ -26,6 +26,30 @@
         <put-attribute name="title" value="Gói nhà xe"/>
         <put-attribute name="content" value="/WEB-INF/jsp/package.jsp"/>
     </definition>
+    <definition name="companyDetails" extends="baseLayout">
+        <put-attribute name="title" value="Chi tiết nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/companyDetails.jsp"/>
+    </definition>
+    <definition name="companyInfo" extends="baseLayout">
+        <put-attribute name="title" value="Thông tin nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/companyInfo.jsp"/>
+    </definition>
+     <definition name="companyRouteMn" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý tuyến xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/companyRouteMn.jsp"/>
+    </definition>
+    <definition name="companyTripMn" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý chuyến xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/companyTripMn.jsp"/>
+    </definition>
+    <definition name="listCarCompany" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/listCarCompany.jsp"/>
+    </definition>
+    <definition name="carCompanyDetails" extends="baseLayout">
+        <put-attribute name="title" value="Chi tiết nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/carCompanyDetails.jsp"/>
+    </definition>
     <!--Admin-->
     <definition name="baseAdminLayout" template="/WEB-INF/layout/admin/base.jsp">
         <put-attribute name="title" value=""/>

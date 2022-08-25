@@ -5,11 +5,14 @@
  */
 package com.qlbx.configs;
 
+import com.qlbx.formatter.RouteFormatter;
+import com.qlbx.formatter.TripFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -42,6 +45,13 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
         registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
     }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new RouteFormatter());
+        registry.addFormatter(new TripFormatter());
+    }
+    
     
     @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver(){

@@ -82,31 +82,27 @@
                 <div class="navbar-brand m-0">
                     <img src="<c:url value="/images/hutao5.jpg"/>" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
                     <ul class="nav-brand-menu">
+                        <c:if test="${currentUser.role.equals('ROLE_COMPANY')}">
                         <li class="p-1">
-                            <a class="d-flex" href="<c:url value="/login"/>">
-                                <i class="fa-solid fa-right-to-bracket"></i>
-                                <span>Đăng nhập vào trái đất</span>
-                            </a>
-                        </li>
-                        <li class="p-1">
-                            <a class="d-flex" href="<c:url value="/login"/>">
-                                <i class="fa-solid fa-right-to-bracket"></i>
-                                <span>Đăng nhập vào trái đất</span>
-                            </a>
-                        </li>
-                        <c:if test="${pageContext.request.userPrincipal.name == null}">
-                            <li class="p-1">
-                                <a class="d-flex" href="<c:url value="/login"/>">
-                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                    <span>Đăng nhập vào trái đất</span>
+                                <a class="d-flex" href="<c:url value="/companyMn/company-info"/>">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                    <span>Quản lý nhà xe</span>
                                 </a>
                             </li>
                         </c:if>
-                        <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <c:if test="${currentUser == null}">
+                            <li class="p-1">
+                                <a class="d-flex" href="<c:url value="/login"/>">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                    <span>Đăng nhập</span>
+                                </a>
+                            </li>
+                        </c:if>
+                        <c:if test="${currentUser != null}">
                             <li class="p-1">
                                 <a class="d-flex" href="<c:url value="/user-logout"/>">
                                     <i class="fa-solid fa-right-to-bracket"></i>
-                                    <span>Đăng xuất khỏi trái đất</span>
+                                    <span>Đăng xuất</span>
                                 </a>
                             </li>
                         </c:if>

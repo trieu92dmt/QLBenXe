@@ -6,6 +6,7 @@
 package com.qlbx.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,10 +18,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,14 +43,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CarCompany.findById", query = "SELECT c FROM CarCompany c WHERE c.id = :id"),
     @NamedQuery(name = "CarCompany.findByCompanyName", query = "SELECT c FROM CarCompany c WHERE c.companyName = :companyName"),
     @NamedQuery(name = "CarCompany.findByAddress", query = "SELECT c FROM CarCompany c WHERE c.address = :address"),
-    @NamedQuery(name = "CarCompany.findByPackageId", query = "SELECT c FROM CarCompany c WHERE c.packageId = :packageId"),
     @NamedQuery(name = "CarCompany.findByEmail", query = "SELECT c FROM CarCompany c WHERE c.email = :email"),
     @NamedQuery(name = "CarCompany.findByPhoneNumber", query = "SELECT c FROM CarCompany c WHERE c.phoneNumber = :phoneNumber")})
 public class CarCompany implements Serializable {
 
+    @Column(name = "expire_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expireDate;
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
@@ -56,8 +63,6 @@ public class CarCompany implements Serializable {
     @Size(max = 45)
     @Column(name = "address")
     private String address;
-    @Column(name = "package_id")
-    private Integer packageId;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 45)
     @Column(name = "email")
@@ -65,11 +70,6 @@ public class CarCompany implements Serializable {
     @Size(max = 45)
     @Column(name = "phone_number")
     private String phoneNumber;
-    @JoinTable(name = "company_account", joinColumns = {
-        @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
-    @ManyToMany
-    private Set<User> userSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Set<Bill> billSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
@@ -78,7 +78,10 @@ public class CarCompany implements Serializable {
     private Set<Rate> rateSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Set<Comment> commentSet;
-
+    @JoinColumn(name = "id", referencedColumnName = "user_id")
+    @OneToOne(optional = false)
+    private User user;
+    
     public CarCompany() {
     }
 
@@ -110,14 +113,6 @@ public class CarCompany implements Serializable {
         this.address = address;
     }
 
-    public Integer getPackageId() {
-        return packageId;
-    }
-
-    public void setPackageId(Integer packageId) {
-        this.packageId = packageId;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -132,15 +127,6 @@ public class CarCompany implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    @XmlTransient
-    public Set<User> getUserSet() {
-        return userSet;
-    }
-
-    public void setUserSet(Set<User> userSet) {
-        this.userSet = userSet;
     }
 
     @XmlTransient
@@ -202,6 +188,22 @@ public class CarCompany implements Serializable {
     @Override
     public String toString() {
         return "com.qlbx.pojo.CarCompany[ id=" + id + " ]";
+    }
+
+    public Date getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
 }

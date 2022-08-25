@@ -12,6 +12,7 @@ package com.qlbx.pojo;
 public class CarCompanyRegister {
     private User user;
     private CarCompany carCompany;
+//    private int packageId;
 
     /**
      * @return the user
@@ -40,5 +41,19 @@ public class CarCompanyRegister {
     public void setCarCompany(CarCompany carCompany) {
         this.carCompany = carCompany;
     }
+
+    /**
+     * @return the packageId
+     */
+//    public int getPackageId() {
+//        return packageId;
+//    }
+
+    /**
+     * @param packageId the packageId to set
+     */
+//    public void setPackageId(int packageId) {
+//        this.packageId = packageId;
+//    }
     
 }

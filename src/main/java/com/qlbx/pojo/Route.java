@@ -5,12 +5,16 @@
  */
 package com.qlbx.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,26 +37,29 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Route.findAll", query = "SELECT r FROM Route r"),
     @NamedQuery(name = "Route.findByRouteId", query = "SELECT r FROM Route r WHERE r.routeId = :routeId"),
-    @NamedQuery(name = "Route.findByOrigin", query = "SELECT r FROM Route r WHERE r.origin = :origin"),
+    @NamedQuery(name = "Route.findByOrigin", query = "SELECT r FROM Route r WHERE r.startingPlace = :startingPlace"),
     @NamedQuery(name = "Route.findByDestination", query = "SELECT r FROM Route r WHERE r.destination = :destination")})
 public class Route implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "route_id")
     private Integer routeId;
     @Size(max = 45)
-    @Column(name = "origin")
-    private String origin;
+    @Column(name = "starting_place")
+    private String startingPlace;
     @Size(max = 45)
     @Column(name = "destination")
     private String destination;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private CarCompany companyId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "routeId")
+    @JsonIgnore
     private Set<Trip> tripSet;
 
     public Route() {
@@ -70,12 +77,12 @@ public class Route implements Serializable {
         this.routeId = routeId;
     }
 
-    public String getOrigin() {
-        return origin;
+    public String getStartingPlace() {
+        return startingPlace;
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
+    public void setStartingPlace(String startingPlace) {
+        this.startingPlace = startingPlace;
     }
 
     public String getDestination() {

@@ -92,7 +92,7 @@
             <div class="col-4 px-4">
                 <label class="d-block text-center fw-bold fs-4 pb-3">Gói Nhà Xe</label>
                 <div class="package-info">
-                    <input id="package-id" type="hidden" name="package-id" value=""/>
+                    <input id="package-id" type="hidden" name="packageId" value=""/>
                     <div class="package-info-item d-flex justify-content-lg-between pb-3">
                         <span>Tên gói: </span>
                         <span id="package-name"></span>

@@ -27,11 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PackageRepositoryImpl implements PackageRepository{
     @Autowired
-    private LocalSessionFactoryBean sessionFactoryBean;
+    private LocalSessionFactoryBean sessionFactory;
     
     @Override
     public List<Package> getPackages() {
-        Session session = sessionFactoryBean.getObject().getCurrentSession();
+        Session session = sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Package> query = builder.createQuery(Package.class);
         Root root = query.from(Package.class);
