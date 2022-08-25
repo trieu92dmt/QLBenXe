@@ -13,20 +13,16 @@
                 <div class="dropdown-select">
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-caravan me-3"></i>
-                        <span class="select">Danh sách nhà xe</span>
+                        <a class="select" href="<c:url value="/list-company"/>">Danh sách nhà xe</a>
                     </div>
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
                 <div class="dropdown-list">
-                    <div class="dropdown-list__item p-1">
-                        <a href="<c:url value="/trip"/>">Xe Mondstadt </a>
-                    </div>
-                    <div class="dropdown-list__item p-1">
-                        <a href="#">Xe Liyue</a>
-                    </div>
-                    <div class="dropdown-list__item p-1">
-                        <a href="#">Xe Inazuma</a>
-                    </div>
+                    <c:forEach items="${carCompany}" var="c">
+                        <div class="dropdown-list__item p-1">
+                            <a href="<c:url value="/carCompanyDetails/${c.id}"/>">${c.companyName} </a>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="dropdown p-1">
@@ -61,14 +57,14 @@
 
             <!-- The slideshow/carousel -->
             <div class="carousel-inner border-rounded">
-                <div class="carousel-item active">
-                    <img src="<c:url value="/images/slide1.jpg"/>" alt="Los Angeles" class="d-block" style="width:100%">
+                <div style="height: 550px" class="carousel-item active">
+                    <img src="<c:url value="/images/xekhach.jpg"/>" alt="Slide 1" class="d-block" style="width:100%; height: 100%">
                 </div>
-                <div class="carousel-item">
-                    <img src="<c:url value="/images/slide2.jpg"/>" alt="Chicago" class="d-block" style="width:100%">
+                <div style="height: 550px" class="carousel-item">
+                    <img src="<c:url value="/images/xekhach2.jpg"/>" alt="Slide 2" class="d-block" style="width:100%; height: 100%">
                 </div>
-                <div class="carousel-item">
-                    <img src="<c:url value="/images/slide3.jpg"/>" alt="New York" class="d-block" style="width:100%">
+                <div style="height: 550px" class="carousel-item">
+                    <img src="<c:url value="/images/xekhach3.jpg"/>" alt="Slide 3" class="d-block" style="width:100%; height: 100%">
                 </div>
             </div>
 
@@ -86,4 +82,4 @@
         </form>-->
     </div>
 </div>
-                
+

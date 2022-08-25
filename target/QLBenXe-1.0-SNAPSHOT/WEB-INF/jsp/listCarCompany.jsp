@@ -23,7 +23,7 @@
                 <div class="card-footer">
                     <h5 class="card-title">${c.companyName}</h5>
                     <p>${c.address}</p>
-                    <a href="<c:url value="/trip/${c.id}"/>">
+                    <a href="<c:url value="/carCompanyDetails/${c.id}"/>">
                         <input type="button" class="btn-std-light btn-register-company" value="Xem chi tiết"/>
                     </a>
                 </div>

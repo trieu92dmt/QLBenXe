@@ -37,6 +37,9 @@ body{
     color: #657ef8;
     border: none;
 }
+.dropdown-select:hover div .select{
+    color: #657ef8;
+}
 .dropdown-list{
     width: 250px;
     height: fit-content;
@@ -66,7 +69,10 @@ body{
     color: #657ef8;
     border: none;
 }
-
+.select{
+    text-decoration: none;
+    color: #8592a3;
+}
 /*-------------*/
 .navbar-brand{
     cursor: pointer;
