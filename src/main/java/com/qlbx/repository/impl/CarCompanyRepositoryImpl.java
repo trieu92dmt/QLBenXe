@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -40,6 +41,11 @@ public class CarCompanyRepositoryImpl implements CarCompanyRepository{
         Query q = s.createQuery(query);
         return q.getResultList();
     }
+    @Override
+    public CarCompany getCarCompanyById(int id){
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        return session.get(CarCompany.class,id);
+    }
 
     @Override
     public boolean addCarCompany(CarCompany carCompany) {
@@ -53,16 +59,16 @@ public class CarCompanyRepositoryImpl implements CarCompanyRepository{
         return false;
     }
 
-    @Override
-    public CarCompany getCarCompanyById(int id) {
-        Session s = sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder builder = s.getCriteriaBuilder();
-        CriteriaQuery<CarCompany> query = builder.createQuery(CarCompany.class);
-        Root root = query.from(CarCompany.class);
-        query = query.select(root);
-        query.where(builder.equal(root.get("id"),id));
-        Query q = s.createQuery(query);
-        return (CarCompany) q.getResultList().get(0);
-    }
+//    @Override
+//    public CarCompany getCarCompanyById(int id) {
+//        Session s = sessionFactory.getObject().getCurrentSession();
+//        CriteriaBuilder builder = s.getCriteriaBuilder();
+//        CriteriaQuery<CarCompany> query = builder.createQuery(CarCompany.class);
+//        Root root = query.from(CarCompany.class);
+//        query = query.select(root);
+//        query.where(builder.equal(root.get("id"),id));
+//        Query q = s.createQuery(query);
+//        return (CarCompany) q.getResultList().get(0);
+//    }
 
 }

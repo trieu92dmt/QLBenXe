@@ -19,13 +19,13 @@
                 </div>
                 <div class="dropdown-list">
                     <div class="dropdown-list__item p-1">
-                        <a href="#">Link 1</a>
+                        <a href="<c:url value="/trip"/>">Xe Mondstadt </a>
                     </div>
                     <div class="dropdown-list__item p-1">
-                        <a href="#">Link 2</a>
+                        <a href="#">Xe Liyue</a>
                     </div>
                     <div class="dropdown-list__item p-1">
-                        <a href="#">Link 3</a>
+                        <a href="#">Xe Inazuma</a>
                     </div>
                 </div>
             </div>

@@ -26,6 +26,7 @@
         <put-attribute name="title" value="Gói nhà xe"/>
         <put-attribute name="content" value="/WEB-INF/jsp/package.jsp"/>
     </definition>
+<<<<<<< HEAD
     <definition name="companyDetails" extends="baseLayout">
         <put-attribute name="title" value="Chi tiết nhà xe"/>
         <put-attribute name="content" value="/WEB-INF/jsp/companyDetails.jsp"/>
@@ -64,4 +65,5 @@
     </definition>
     <definition name="error" template="/WEB-INF/jsp/error.jsp">
     </definition>
+
 </tiles-definitions>
