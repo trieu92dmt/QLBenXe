@@ -5,6 +5,8 @@
  */
 package com.qlbx.configs;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.qlbx.handlers.LoginSuccessfullHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -67,4 +69,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationSuccessHandler loginSuccessHandler(){
         return new LoginSuccessfullHandler();
     }
+                @Bean
+        public Cloudinary cloudinary() {
+            Cloudinary cloudinary
+                    = new Cloudinary(ObjectUtils.asMap(
+                            "cloud_name", "duilcpycp",
+                            "api_key", "224993264757934",
+                            "api_secret", "XrpBhaX3OP30V7FEIy1OudikjyU",
+                            "secure", true));
+            return cloudinary;
+        }
 }

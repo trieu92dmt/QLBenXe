@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -47,6 +48,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate")})
 public class User implements Serializable {
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private CarCompany carCompany;
@@ -79,7 +94,7 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Size(max = 45)
+    @Size(max = 200)
     @Column(name = "avatar")
     private String avatar;
     @Size(max = 45)
@@ -98,7 +113,8 @@ public class User implements Serializable {
     private Customer customer;
     @Transient
     private String confirmPassword;
-    
+    @Transient
+    private MultipartFile file;
     public User() {
     }
 

@@ -15,7 +15,8 @@
         </div>
         <div class="col-6 p-0 d-flex">
             <div class="login-form w-50 m-auto">
-                <form:form class="mb-2" action="${register}" method="post" modelAttribute="user">
+                <form:form class="mb-2" enctype="multipart/form-data"
+                           action="${register}" method="post" modelAttribute="user">
                     <label class="text-center d-block color-blue fs-4 mb-3">Đăng Ký</label>
                     <div class="mb-3">
                         <label for="username" class="form-label">Tên đăng nhập: </label>
@@ -36,6 +37,10 @@
                     <div class="mb-3">
                         <label for="phone-number" class="form-label">Số điện thoại: </label>
                         <form:input type="number" class="form-control" id="phone-number" placeholder="Số điện thoại" path="phoneNumber"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="avatar" class="form-label">Avatar </label>
+                        <form:input type="file" class="form-control" id="avatar" placeholder="Số điện thoại" path="file"/>
                     </div>
                     <button type="submit" class="btn btn-primary d-block mx-auto">Đăng ký</button>
                 </form:form>
